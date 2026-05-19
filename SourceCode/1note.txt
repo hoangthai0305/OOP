@@ -1,0 +1,7 @@
+RQ1:
+ -Room: 8 bien
+ -Resort: 7 bien - done
+ -Homestay: 5 bien - done
+ -Hotel: 6 bien - done
+ -Villa: 10 bien - done
+ -CruiseShip: 11 bien - done
