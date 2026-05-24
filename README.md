@@ -1,40 +1,40 @@
 # OOP - Accommodation Reservation System
 
-## Tong quan
+## Overview
 
-Day la bai tap lon mon Lap Trinh Huong Doi Tuong, mo phong he thong quan ly va dat cho luu tru. Du an doc du lieu tu cac file CSV, tao danh sach co so luu tru theo mo hinh huong doi tuong, ho tro tim kiem theo nhieu tieu chi va thuc hien dat phong.
+This repository contains a Java object-oriented programming project that simulates an accommodation reservation system. The application loads accommodation data from CSV files, builds an object model for different accommodation types, supports multiple search scenarios, and performs room reservations by appending new records to a reservation file.
 
-README nay mo ta dung theo trang thai repo hien tai, khong viet lai theo de bai ly tuong.
+This README describes the project as it currently exists in the repository, including its actual folder structure, implemented features, and runtime constraints.
 
-## Chuc nang da co
+## Implemented Features
 
-Du an hien tai da cai dat cac yeu cau sau:
+The current codebase implements the following requirements:
 
-1. Nap du lieu accommodation, room va quan he room-accommodation tu CSV.
-2. Tim co so luu tru theo thanh pho va so nguoi.
-3. Tim co so luu tru theo khoang gia, thoi gian va tinh trang da dat.
-4. Tim kiem nang cao theo cac tieu chi:
-   - loai phong
-   - ho boi rieng
-   - so sao
-   - bua sang mien phi
-   - bar rieng
-5. Thuc hien dat phong va ghi them reservation vao file CSV.
+1. Load accommodations, rooms, and room-accommodation mappings from CSV files.
+2. Search accommodations by city and number of guests.
+3. Search accommodations by price range, date range, city, guest count, and booking availability.
+4. Perform advanced searches using optional filters such as:
+   - room type
+   - private pool
+   - star rating
+   - free breakfast
+   - private bar
+5. Perform a reservation and append the new booking to a CSV file.
 
-`Main.java` va `Main_1.java` dang su dung cac requirement `1` den `5`. Mang ten file output co khai bao `Req6.txt`, nhung entry point hien tai khong co case xu ly requirement 6.
+`Main.java` and `Main_1.java` currently execute requirements `1` through `5`. The output file array also includes `Req6.txt`, but the current entry points do not implement a case for requirement 6.
 
-## Mo hinh doi tuong
+## Object Model
 
-He thong xoay quanh cac lop sau:
+The project is organized around these main classes:
 
-- `Accommodation`: lop truu tuong goc cho moi co so luu tru.
-- `CommonAccommodation`: nhom co phong (`Hotel`, `Homestay`, `Resort`).
-- `LuxuryAccommodation`: nhom luu tru cao cap (`Villa`, `CruiseShip`).
-- `Room`: thong tin phong, suc chua, loai phong, gia theo dem.
-- `Reservation`: thong tin dat cho.
-- `ReservationSystem`: lop nghiep vu trung tam, xu ly doc file, tim kiem va dat phong.
+- `Accommodation`: abstract base class for all accommodation types.
+- `CommonAccommodation`: accommodation type with rooms (`Hotel`, `Homestay`, `Resort`).
+- `LuxuryAccommodation`: high-end accommodation type (`Villa`, `CruiseShip`).
+- `Room`: stores room information such as capacity, type, and nightly cost.
+- `Reservation`: stores booking information.
+- `ReservationSystem`: central business logic for loading data, searching, and reserving.
 
-## Cau truc thu muc
+## Repository Structure
 
 ```text
 .
@@ -64,35 +64,35 @@ He thong xoay quanh cac lop sau:
 `-- README.md
 ```
 
-Ghi chu:
+Notes:
 
-- Source bi tach thanh 2 noi: lop nghiep vu nam trong `523H0177_MaiHoangThai/`, con file chay va du lieu nam trong `SourceCode/`.
-- Repo dang kem san file `.class`, output mau va mot so file zip/phien ban nop bai.
+- The source code is split across two locations: the domain and business logic classes are in `523H0177_MaiHoangThai/`, while the entry points, datasets, and generated outputs are in `SourceCode/`.
+- The repository also includes compiled `.class` files, sample outputs, and submission archive files.
 
-## Du lieu dau vao
+## Input Data
 
-Bo du lieu chinh nam trong `SourceCode/data/`:
+The main dataset is located in `SourceCode/data/`:
 
-- `accommodation.csv`: thong tin cac loai luu tru.
-- `room_type.csv`: thong tin phong.
-- `room_in_accommodation.csv`: mapping phong vao accommodation.
-- `reservation_3.csv`: du lieu phuc vu tim kiem theo khoang thoi gian.
-- `reservation_5.csv`: du lieu phuc vu dat phong.
+- `accommodation.csv`: accommodation records
+- `room_type.csv`: room definitions
+- `room_in_accommodation.csv`: room-to-accommodation mapping
+- `reservation_3.csv`: reservation data used by the date-range search
+- `reservation_5.csv`: reservation data used by the booking feature
 
-Bo du lieu phu nam trong `SourceCode/data_1/` va duoc `Main_1.java` su dung.
+An alternate dataset is located in `SourceCode/data_1/` and is used by `Main_1.java`.
 
-## Cach chay
+## How to Build and Run
 
-### Yeu cau moi truong
+### Environment Requirements
 
 - JDK 21
-- Windows PowerShell hoac terminal co the goi `javac` / `java`
+- Windows PowerShell or another terminal that can execute `javac` and `java`
 
-Luu y quan trong: trong workspace hien tai, lenh `java` trong `PATH` dang tro toi JRE 8, trong khi cac file `.class` co san duoc build bang Java 21. Neu may cua ban gap loi `UnsupportedClassVersionError`, hay dung dung binary Java 21 hoac sua lai `PATH`.
+Important note: in the current machine setup used to inspect this repository, `java` in `PATH` points to JRE 8 while the compiled `.class` files were built with Java 21. If you see `UnsupportedClassVersionError`, use a Java 21 runtime explicitly or update your `PATH` so that `java` and `javac` come from the same JDK.
 
-### Bien dich lai tu source
+### Compile from Source
 
-Chay tu thu muc goc cua repo:
+Run this command from the repository root:
 
 ```powershell
 & "C:\Program Files\Common Files\Oracle\Java\javapath\javac.exe" `
@@ -104,14 +104,14 @@ Chay tu thu muc goc cua repo:
   SourceCode\Test.java
 ```
 
-### Chay bo du lieu chinh
+### Run the Main Dataset
 
 ```powershell
 Set-Location SourceCode
 & "C:\Program Files\Common Files\Oracle\Java\javapath\java.exe" Main 1 2 3 4 5
 ```
 
-Ket qua duoc ghi vao:
+This generates:
 
 - `SourceCode/output/Req1.txt`
 - `SourceCode/output/Req2_1.txt`
@@ -122,45 +122,45 @@ Ket qua duoc ghi vao:
 - `SourceCode/output/Req4_2.txt`
 - `SourceCode/output/Req5.txt`
 
-### Chay bo du lieu phu
+### Run the Alternate Dataset
 
 ```powershell
 Set-Location SourceCode
 & "C:\Program Files\Common Files\Oracle\Java\javapath\java.exe" Main_1 1 2 3 4
 ```
 
-Ket qua duoc ghi vao `SourceCode/output_1/`.
+This generates output files in `SourceCode/output_1/`.
 
-## Doi chieu ket qua
+## Expected Output
 
-Repo da kem san:
+The repository already contains reference outputs in:
 
 - `SourceCode/expected_output/`
 - `SourceCode/expected_output_1/`
 
-De so sanh voi:
+Generated outputs can be compared against:
 
 - `SourceCode/output/`
 - `SourceCode/output_1/`
 
-## Hanh vi dat phong
+## Reservation Behavior
 
-Requirement 5 thuc hien cac buoc:
+Requirement 5 performs the following steps:
 
-1. Doc file reservation hien co.
-2. Kiem tra phong con trong khoang thoi gian yeu cau.
-3. Tinh tong tien theo so ngay va gia phong.
-4. Cong them `8%` vao tong tien.
-5. Ghi them dong moi vao file reservation.
+1. Read existing reservations from file.
+2. Check whether the requested room is available for the requested period.
+3. Compute the total price based on the number of days and the room rate.
+4. Add `8%` to the total price.
+5. Append a new reservation record to the reservation CSV file.
 
-Vi vay, moi lan chay requirement 5 co the lam thay doi `SourceCode/data/reservation_5.csv`.
+Because of this behavior, running requirement 5 can modify `SourceCode/data/reservation_5.csv`.
 
-## Trang thai repo
+## Current Project State
 
-Day la mot du an Java thuan:
+This is a plain Java project:
 
-- khong dung package
-- khong dung Maven/Gradle
-- du lieu va output duoc doc/ghi truc tiep bang file CSV/TXT
+- no package structure
+- no Maven or Gradle build system
+- direct CSV and TXT file input/output
 
-Neu muon don repo hon ve sau, co the gop source ve mot thu muc, bo file `.class` khoi version control va them script build/run rieng. Tuy nhien README nay dang uu tien mo ta dung hien trang de co the clone va chay ngay.
+If the project is cleaned up in the future, a reasonable next step would be to consolidate the source files into one source tree, remove compiled `.class` files from version control, and add a dedicated build/run script. This README intentionally documents the repository as it currently works so that it can be cloned and executed with minimal guesswork.
